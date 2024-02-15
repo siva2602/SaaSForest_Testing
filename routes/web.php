@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Livewire\ProductList;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
+// Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/get-variant-price', [HomeController::class, 'getVariantPrice'])->name('home.get-variant-price');
 Route::post('/add-to-cart', [HomeController::class, 'addToCart'])->name('cart.add');
 
 Route::post('login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+
+Route::get('/', ProductList::class)->name('home.index');

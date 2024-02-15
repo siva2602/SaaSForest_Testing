@@ -18,18 +18,11 @@ class HomeController extends Controller
     {
         try {
             $categories = Category::all();
-            $products = Product::when(($request->search_product ?? false), function ($query) use ($request) {
-                $query->where('name', 'like', '%' . $request->search_product . '%');
-            })->get();
-            $sizes = Size::all();
-            $colors = Color::all();
+            
             $cartCount = auth()->check() ? Cart::where('user_id', auth()->user()->id)->count() : 0;
 
             return view('index', [
                 'categories' => $categories,
-                'products' => $products,
-                'sizes' => $sizes,
-                'colors' => $colors,
                 'cartCount' => $cartCount,
                 'searchProduct' => $request->search_product ?? ''
             ]);
