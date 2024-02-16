@@ -29,7 +29,7 @@
                 <p><span class="text-danger" id="error_product_color_{{ $product->id }}"></span>Color</p>
                 <p id='product-cart-variant-color-{{ $product->id }}'>
                     @foreach ($colors as $color )
-                    <span class="dot-color cursor" x-on:click="selectColor({{ $product->id }} , {{ $color->id }})" id="product_{{ $product->id }}_color_{{ $color->id }}" style="background-color: {{ $color->code }};">&nbsp;</span>
+                    <span class="dot-color cursor" x-on:click="$wire.selectColor({{ $product->id }} , {{ $color->id }})" id="product_{{ $product->id }}_color_{{ $color->id }}" style="background-color: {{ $color->code }};">&nbsp;</span>
                     @endforeach
                 </p>
             </div>
@@ -37,6 +37,7 @@
     </div>
     @endforeach
 
+</div>
     @if (sizeOf($products) == 0)
     <div style="text-align: center;">
         <h4 class="text-center ">No Product available</h4>

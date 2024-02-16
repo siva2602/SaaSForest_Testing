@@ -60,7 +60,7 @@ class ProductList extends Component
     public function selectColor($productId, $colorId)
     {
         if($this->selectedProductId != $productId) {
-
+            return true;
         }
 
         $this->selectedColorId = $colorId;
