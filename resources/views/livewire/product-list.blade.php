@@ -21,7 +21,7 @@
 
                 <p id='product-cart-variant-size-{{ $product->id }}'>
                     @foreach ($sizes as $size)
-                    <span id="product_{{ $product->id }}_size_{{ $size->id }}" class="dot cursor product-size-dot-{{ $product->id }}" @if (!auth()->check()) onclick = 'loginFrom()' @else onclick = 'selectSize({{ $product->id }} , {{ $size->id }})' @endif>{{ $size->size }}</span>
+                    <span wire:model="sizeId" x-on:click="selectSize({{ $product->id }} , {{ $size->id }})" id="product_{{ $product->id }}_size_{{ $size->id }}" class="dot cursor product-size-dot-{{ $product->id }}">{{ $size->size }}</span>
                     @endforeach
                 </p>
             </div>
@@ -29,7 +29,7 @@
                 <p><span class="text-danger" id="error_product_color_{{ $product->id }}"></span>Color</p>
                 <p id='product-cart-variant-color-{{ $product->id }}'>
                     @foreach ($colors as $color )
-                    <span class="dot-color cursor" id="product_{{ $product->id }}_color_{{ $color->id }}" @if (!auth()->check()) onclick = 'loginFrom()' @else onclick = 'selectColor({{ $product->id }} , {{ $color->id }})' @endif style="background-color: {{ $color->code }};">&nbsp;</span>
+                    <span class="dot-color cursor" x-on:click="selectColor({{ $product->id }} , {{ $color->id }})" id="product_{{ $product->id }}_color_{{ $color->id }}" style="background-color: {{ $color->code }};">&nbsp;</span>
                     @endforeach
                 </p>
             </div>
