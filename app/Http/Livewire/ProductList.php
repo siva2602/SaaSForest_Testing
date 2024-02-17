@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\Size;
+use App\Models\Variant;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -17,6 +18,8 @@ class ProductList extends Component
     public $selectedProductId = 0;
     public $selectedSizeId = 0;
     public $selectedColorId = 0;
+
+    public $variantPrice = 0;
 
     public function render()
     {
@@ -51,20 +54,14 @@ class ProductList extends Component
         }
     }
 
-    public function selectSize($productId, $sizeId)
+    public function getPrice($productId, $sizeId, $colorId)
     {
+
+        $variant = Variant::where('product_id', $productId)
+            ->where('size_id', $sizeId)
+            ->where('color_id', $colorId)->first();
+
         $this->selectedProductId = $productId;
-        $this->selectedSizeId = $sizeId;
-    }
-
-    public function selectColor($productId, $colorId)
-    {
-        if($this->selectedProductId != $productId) {
-            return true;
-        }
-
-        $this->selectedColorId = $colorId;
-
-        dd($this->selectedProductId,$this->selectedSizeId,$this->selectedColorId);
+        $this->variantPrice =  $variant->price;
     }
 }
