@@ -20,7 +20,13 @@ class Product extends Model
         'created_at'
     ];
 
-    public function variant() {
+    public function variant()
+    {
         return $this->hasMany(Variant::class, 'product_id', 'id');
+    }
+
+    public function categiries()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }
