@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/custom-css.css') }}">
 </head>
 
-<body>
+<body x-data='{lblCartCount: 0}'>
     <section class="navbar navbar-expand-sm mt-1 mb-1">
         <div class="container-fluid">
             <div class="navbar-nav">

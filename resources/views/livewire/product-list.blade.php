@@ -1,6 +1,6 @@
 <div class="row">
     @foreach ($products as $product)
-    <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item" x-data="{selectedProduct: 0, selectedSize: 0, selectedColor: 0, errorMessage: '', 'currentPrice':0, variantId}">
+    <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item" x-data="{selectedProduct: 0, selectedSize: 0, selectedColor: 0, errorMessage: '', currentPrice:0, variantId:0}">
         <div class="product">
             <img src="{{ asset('image/product.png') }}" alt="">
         </div>
@@ -8,7 +8,14 @@
             <div class="product-cart-amount" id="product_amount_{{ $product->id }}">RS. <span x-text="(currentPrice > 0) ? currentPrice : {{ $product->price }}"></span></div>
             <div style='cursor: pointer;' @click="(!{{ auth()->check() }}) ? loginFrom() : $wire.addToCart(selectedProduct, variantId).then(result => {
                 if(result['count']) {
+                    lblCartCount = result['count'];
                     alert('product add to cart');
+                    selectedProduct= 0;
+                    selectedSize= 0;
+                    selectedColor= 0;
+                    errorMessage = '';
+                    currentPrice = 0;
+                    variantId = 0;
                 }
             });" class="product-add-to-cart">
                 <div x-show="variantId > 0">
