@@ -13,14 +13,6 @@ use Livewire\Component;
 #[Title('Home Page')]
 class ProductList extends Component
 {
-    public $sizeId = 0;
-
-    public $selectedProductId = 0;
-    public $selectedSizeId = 0;
-    public $selectedColorId = 0;
-
-    public $variantPrice = 0;
-
     public function render()
     {
         $products = Product::get();
@@ -33,10 +25,20 @@ class ProductList extends Component
         ]);
     }
 
-    public function addToCart($productId)
+    public function getPrice($productId, $sizeId, $colorId)
+    {
+
+        $variant = Variant::where('product_id', $productId)
+            ->where('size_id', $sizeId)
+            ->where('color_id', $colorId)->first();
+
+        return ['price' => $variant->price, 'variant_id' => $variant->id];
+    }
+
+    public function addToCart($productId, $variantId)
     {
         $checkExitCart = Cart::where('product_id', $productId)
-            ->where('variant_id', '')
+            ->where('variant_id', $variantId)
             ->where('user_id', auth()->user()->id)->first();
 
         if ($checkExitCart) {
@@ -47,21 +49,12 @@ class ProductList extends Component
 
             Cart::create([
                 'product_id' => $productId,
-                'variant_id' => '',
+                'variant_id' => $variantId,
                 'user_id' => auth()->user()->id,
                 'quantity' => 1
             ]);
         }
-    }
 
-    public function getPrice($productId, $sizeId, $colorId)
-    {
-
-        $variant = Variant::where('product_id', $productId)
-            ->where('size_id', $sizeId)
-            ->where('color_id', $colorId)->first();
-
-        $this->selectedProductId = $productId;
-        $this->variantPrice =  $variant->price;
+        return ['count' => Cart::where('user_id', auth()->user()->id)->count()];
     }
 }
