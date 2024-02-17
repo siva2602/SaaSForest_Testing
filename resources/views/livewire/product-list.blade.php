@@ -6,7 +6,7 @@
         </div>
         <div class="product-list-cart">
             <div class="product-cart-amount" id="product_amount_{{ $product->id }}">RS. <span x-text="(currentPrice > 0) ? currentPrice : {{ $product->price }}"></span></div>
-            <div style='cursor: pointer;'  @click = "(!{{ auth()->check() }}) ? loginFrom() : $wire.addToCart(selectedProduct, variantId).then(result => {
+            <div style='cursor: pointer;' @click="(!{{ auth()->check() }}) ? loginFrom() : $wire.addToCart(selectedProduct, variantId).then(result => {
                 if(result['count']) {
                     alert('product add to cart');
                 }
